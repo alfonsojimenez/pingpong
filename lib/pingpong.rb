@@ -9,6 +9,8 @@ require 'pathname'
 require 'pingpong/ball'
 require 'pingpong/direction'
 require 'pingpong/game'
+require 'pingpong/mode'
+require 'pingpong/level'
 require 'pingpong/player'
 require 'pingpong/status'
 require 'pingpong/text'
@@ -16,7 +18,7 @@ require 'pingpong/text'
 module Pingpong
   include Gosu
 
-  VERSION = '0.0.1'
+  VERSION = '0.1.0'
   
   class << self
     def root

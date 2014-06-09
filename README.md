@@ -1,8 +1,9 @@
 # Pingpong
 
-Classic pingpong game written in Ruby
+Classic pingpong game written in Ruby. It is possible to play it in single
+player or multiplayer mode.
 
-![Pingpong](http://i.imgur.com/C0iGQAt.png)
+![Pingpong](http://i.imgur.com/Su0AZmW.png)
 
 ## Setup
 

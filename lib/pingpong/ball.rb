@@ -8,8 +8,8 @@ module Pingpong
 
       @direction = Direction.random
       @speed = DEFAULT_SPEED
-      @angle = rand(45) * @direction
-      @diameter = 35
+      @angle = random_angle
+      @diameter = 36
 
       @x = opts[:x] || 0.0
       @y = opts[:y] || 0.0
@@ -19,6 +19,14 @@ module Pingpong
 
     def draw
       @image.draw_rot(@x, @y, 1, @angle)
+    end
+
+    def lower_than?(player)
+      @y > player.y + player.height/3
+    end
+
+    def higher_than?(player)
+      @y < player.y - player.height/3
     end
 
     def move_to(x, y)
@@ -78,7 +86,7 @@ module Pingpong
         restart_and_score_up(@player1)
       elsif @x <= 0
         restart_and_score_up(@player2)
-      elsif @y <= 0 || @y >= Game::WIDTH
+      elsif @y-radius <= 0 || @y+radius >= Game::WIDTH
         invert_angle
       end
     end

@@ -25,7 +25,7 @@ module Pingpong
     end
 
     def playing?
-      @status == Status::PLAY
+      @status == Status::PLAY && !@mode.nil?
     end
 
     def paused?
@@ -36,8 +36,21 @@ module Pingpong
       @status == Status::STOP
     end
 
+    def single_mode?
+      @mode == Mode::SINGLE
+    end
+
+    def two_players_mode?
+      @mode == Mode::TWO_PLAYERS
+    end
+
+    def start_mode(mode)
+      @mode = mode
+      @status = Status::PLAY
+    end
+
     def toggle_status
-      @status = playing? ? Status::PAUSE : Status::PLAY
+      @status = playing? ? Status::PAUSE : Status::PLAY unless stop?
     end
 
     def update
@@ -46,17 +59,31 @@ module Pingpong
         sleep 0.3
       end
 
+      if stop?
+        if button_down?(Gosu::KbA)
+          @player2.speed = Level::HARD
+          start_mode(Mode::SINGLE)
+        elsif button_down?(Gosu::KbB)
+          start_mode(Mode::TWO_PLAYERS)
+        end
+      end
+
       if playing?
         @ball.move
 
+        if single_mode?
+          if @ball.lower_than?(@player2)
+            @player2.move_down
+          elsif @ball.higher_than?(@player2)
+            @player2.move_up
+          end
+        else
+          @player2.move_down if button_down?(Gosu::KbJ)
+          @player2.move_up if button_down?(Gosu::KbK)
+        end
+
         @player1.move_down if button_down?(Gosu::KbA)
         @player1.move_up if button_down?(Gosu::KbS)
-
-        @player2.move_down if button_down?(Gosu::KbJ)
-        @player2.move_up if button_down?(Gosu::KbK)
-
-        @player1.move
-        @player2.move
       end
     end
 
@@ -69,7 +96,7 @@ module Pingpong
       text.pause if paused?
       text.start if stop?
       text.scores(@player1, @player2)
-      text.help
+      text.help(@mode)
     end
 
     def text
