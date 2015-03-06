@@ -8,7 +8,7 @@ module Pingpong
       @font ||= Gosu::Font.new(@window, Pingpong.assets_dir('bm_germar.ttf'), 20)
     end
 
-    def text(message, x, y, size = 1.0, color = color::BLACK)
+    def text(message, x, y, size = 1.0, color = Gosu::Color::BLACK)
       font.draw(message, x, y, 4, size, size, color)
     end
 
