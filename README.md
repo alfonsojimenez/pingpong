@@ -15,6 +15,10 @@ bundle install
 
 Enjoy! :)
 
+## Problems installing Gosu?
+
+([Getting Started on Linux](https://github.com/jlnr/gosu/wiki/Getting-Started-on-Linux))
+
 ## Author
 
 Alfonso Jiménez ([@alfonsojimenez](http://twitter.com/alfonsojimenez))
